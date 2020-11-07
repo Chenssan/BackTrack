@@ -1,0 +1,38 @@
+void backtrack (k)
+matrix[1000][20]
+A元素表[20] 目前选取的matrix列
+A占用表[1000] 目前占用的matrix行（即有1的行）
+if k > n
+    更新 best元素个数
+    best A元素表
+    best B元素表
+    return
+if 约束函数a
+    进左
+    choose[k] = 1
+    A表<-k
+    A占用表+matrix[][k]
+    backtrack(k + 1)
+    choose[k] = 0
+    A占用表+matrix[][k]
+    A表k->
+if 约束函数b
+    进中
+    choose[k] = 2
+    B表<-k
+    B占用表+matrix[][k]
+    backtrack(k + 1)
+    choose[k] = 0
+    B占用表+matrix[][k]
+    B表k->
+if 限界函数
+    进右
+    choose[k] = 3
+    backtrack(k + 1)
+    choose[k] = 0
+约束函数a
+    if(k==n&&B表==0)
+    false][O
+    matrix[i][k]=1 B占用表=0
+    true
+
