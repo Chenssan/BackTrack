@@ -57,7 +57,7 @@ public class BackTrack {
                         for (int i = 0; i < ACurr; i++) {
                             ASum += AElement[i];
                         }
-                        for (int i = 0; i < BCurr; i++) {
+                        for (int i = 0; i < ACurr; i++) {
                             BestSum += BestAElement[i];
                         }
                         if (ASum < BestSum) {
