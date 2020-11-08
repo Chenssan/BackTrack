@@ -15,7 +15,9 @@ public class BackTrack {
     static int Number;//A,B和占列数
     static int BestNumber;
     static int n;
-    static int times = 0;
+    static int DifCur;
+    static int BestDifCur;
+//    static int times = 0;
 
     public static void backtrack (int k) {
         if(k > n) {
@@ -27,6 +29,47 @@ public class BackTrack {
                 BestBElement = BElement.clone();
                 BestACurr = ACurr;
                 BestBCurr = BCurr;
+                DifCur = ACurr >= BCurr ? ACurr - BCurr : BCurr - ACurr;
+                BestDifCur = DifCur;
+            }
+            if (Number == BestNumber) {
+                DifCur = ACurr >= BCurr ? ACurr - BCurr : BCurr - ACurr;
+                if (DifCur < BestDifCur) {
+                    BestNumber = Number;
+                    BestAElement = AElement.clone();
+                    BestBElement = BElement.clone();
+                    BestACurr = ACurr;
+                    BestBCurr = BCurr;
+                    BestDifCur = DifCur;
+                }
+                if (DifCur == BestDifCur) {
+                    if (ACurr > BestACurr) {
+                        BestNumber = Number;
+                        BestAElement = AElement.clone();
+                        BestBElement = BElement.clone();
+                        BestACurr = ACurr;
+                        BestBCurr = BCurr;
+                        BestDifCur = DifCur;
+                    }
+                    if (ACurr == BestACurr) {
+                        int ASum = 0;
+                        int BestSum = 0;
+                        for (int i = 0; i < ACurr; i++) {
+                            ASum += AElement[i];
+                        }
+                        for (int i = 0; i < BCurr; i++) {
+                            BestSum += BestAElement[i];
+                        }
+                        if (ASum < BestSum) {
+                            BestNumber = Number;
+                            BestAElement = AElement.clone();
+                            BestBElement = BElement.clone();
+                            BestACurr = ACurr;
+                            BestBCurr = BCurr;
+                            BestDifCur = DifCur;
+                        }
+                    }
+                }
             }
             return;
         }
@@ -103,7 +146,7 @@ public class BackTrack {
         if (k == n && (ACurr ==0 || BCurr == 0)) {
             return false;
         }
-        if (n - k + ACurr +BCurr < BestNumber) {//=?
+        if (n - k + ACurr +BCurr <= BestNumber) {//=?
             return false;
         }
         return true;
@@ -133,20 +176,35 @@ public class BackTrack {
             ABlock = new int[1000];
             BBlock = new int[1000];
             Choose = new int[1000];
+            ACurr = 0;
+            BCurr = 0;
+            BestNumber = 0;
+            DifCur = 0;
             n = 20;
             backtrack(1);
             //System.out.println(BestNumber);
             for (int i = 0; i < BestACurr; i++) {
-                System.out.print(BestAElement[i]);
-                System.out.print(" ");
+                if (BestAElement[i] != 0) {
+                    System.out.print(BestAElement[i] - 1);
+                    System.out.print(" ");
+                    out.write(Integer.toString(BestAElement[i] - 1));
+                    out.write(" ");
+                }
             }
             System.out.println();
+            out.newLine();
             for (int i = 0; i < BestBCurr; i++) {
-                System.out.print(BestBElement[i]);
-                System.out.print(" ");
+                if (BestAElement[i] != 0) {
+                    System.out.print(BestBElement[i] - 1);
+                    System.out.print(" ");
+                    out.write(Integer.toString(BestBElement[i] - 1));
+                    out.write(" ");
+                }
             }
             System.out.println();
+            out.newLine();
         }
-
+        in.close();
+        out.close();
     }
 }
