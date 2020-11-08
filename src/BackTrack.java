@@ -1,3 +1,4 @@
+import java.io.*;
 public class BackTrack {
     static int[][] matrix;//0
     static int[] AElement;//
@@ -14,9 +15,11 @@ public class BackTrack {
     static int Number;//A,B和占列数
     static int BestNumber;
     static int n;
+    static int times = 0;
 
     public static void backtrack (int k) {
         if(k > n) {
+            //System.out.println(times);
             Number = ACurr + BCurr;
             if (Number > BestNumber) {
                 BestNumber = Number;
@@ -100,40 +103,50 @@ public class BackTrack {
         if (k == n && (ACurr ==0 || BCurr == 0)) {
             return false;
         }
-        if (n - k + Number > BestNumber) {//=?
+        if (n - k + ACurr +BCurr < BestNumber) {//=?
             return false;
         }
         return true;
     }
 
-    public static void main(String[] args) {
-        matrix = new int[4][7];
-        matrix[1][0] = 1;
-        matrix[3][0] = 1;
-        matrix[2][3] = 1;
-        matrix[3][3] = 1;
-        matrix[1][5] = 1;
-        matrix[0][6] = 1;
-        AElement = new int[4];
-        BestAElement = new int[4];
-        BElement = new int[4];
-        BestBElement = new int[4];
-        ABlock = new int[7];
-        BBlock = new int[7];
-        Choose = new int[8];
-        n = 4;
-        backtrack(1);
-        System.out.println(BestNumber);
-        for (int i = 0; i < BestACurr; i++) {
-            System.out.print(BestAElement[i]);
-            System.out.print(" ");
+    public static void main(String[] args) throws IOException {
+        File file = new File("C:\\Users\\王明康\\Desktop\\exp6_in.txt");
+        BufferedReader in = new BufferedReader(new FileReader(file));
+        File file1 = new File("C:\\Users\\王明康\\Desktop\\exp6_myout.txt");
+        BufferedWriter out = new BufferedWriter(new FileWriter(file1));
+        String line;
+        line = in.readLine();
+        int N = Integer.parseInt(line);
+        for(int k = 0; k < N; k++) {
+            matrix = new int[20][1000];
+            for (int i = 0; i < 1000; i++) {
+                line = in.readLine();
+                String[] temp1 = line.split(" ");
+                for (int j = 0; j < 20; j++) {
+                    matrix[j][i] = Integer.parseInt(temp1[j]);
+                }
+            }
+            AElement = new int[20];
+            BestAElement = new int[20];
+            BElement = new int[20];
+            BestBElement = new int[20];
+            ABlock = new int[1000];
+            BBlock = new int[1000];
+            Choose = new int[1000];
+            n = 20;
+            backtrack(1);
+            //System.out.println(BestNumber);
+            for (int i = 0; i < BestACurr; i++) {
+                System.out.print(BestAElement[i]);
+                System.out.print(" ");
+            }
+            System.out.println();
+            for (int i = 0; i < BestBCurr; i++) {
+                System.out.print(BestBElement[i]);
+                System.out.print(" ");
+            }
+            System.out.println();
         }
-        System.out.println();
-        for (int i = 0; i < BestBCurr; i++) {
-            System.out.print(BestBElement[i]);
-            System.out.print(" ");
-        }
-
 
     }
 }
