@@ -146,7 +146,7 @@ public class BackTrack {
         if (k == n && (ACurr ==0 || BCurr == 0)) {
             return false;
         }
-        if (n - k + ACurr +BCurr <= BestNumber) {//=?
+        if (n - k + ACurr +BCurr < BestNumber) {//=?
             return false;
         }
         return true;
